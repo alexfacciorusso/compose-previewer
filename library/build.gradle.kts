@@ -21,3 +21,9 @@ compose.desktop {
         mainClass = "MainKt"
     }
 }
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
