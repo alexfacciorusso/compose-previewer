@@ -69,9 +69,13 @@ interface PreviewerScope {
 
 interface PreviewScope {
     val backgroundColor: Color
+    val previewTheme: PreviewTheme
 }
 
-internal data class PreviewScopeImpl(override val backgroundColor: Color) : PreviewScope
+internal data class PreviewScopeImpl(
+    override val backgroundColor: Color,
+    override val previewTheme: PreviewTheme,
+) : PreviewScope
 
 internal data class PreviewInfo(
     val title: AnnotatedString,
@@ -82,7 +86,7 @@ internal data class PreviewInfo(
     val maxHeight: Dp,
     val contentPadding: PaddingValues,
     val contentBackgroundOverride: Color?,
-    val content: @Composable (PreviewScope.() -> Unit),
+    val content: @Composable PreviewScope.() -> Unit,
 )
 
 internal class PreviewerBuilderImpl : PreviewerScope {

@@ -4,6 +4,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
+import com.alexfacciorusso.previewer.PreviewTheme
 import com.alexfacciorusso.previewer.Previewer
 import com.alexfacciorusso.previewer.PreviewerScope
 
@@ -27,8 +28,11 @@ fun AppTheme(content: @Composable () -> Unit) {
 
 @Composable
 fun AppThemePreviewer(content: PreviewerScope.() -> Unit) {
-    Previewer(wrapperBlock = { isDarkTheme, wrappedContent ->
-        val themeInfo = if (isDarkTheme) ThemeInfo.Dark else ThemeInfo.Light
+    Previewer(wrapperBlock = { wrappedContent ->
+        val themeInfo = when (previewTheme) {
+            PreviewTheme.Light -> ThemeInfo.Light
+            PreviewTheme.Dark -> ThemeInfo.Light
+        }
 
         CompositionLocalProvider(LocalThemeInfo provides themeInfo) {
             AppTheme {

@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.max
 
-private typealias WrapperBlock = @Composable (isDarkTheme: Boolean, content: @Composable () -> Unit) -> Unit
+private typealias PreviewWrapperBlock = @Composable PreviewScope.(content: @Composable () -> Unit) -> Unit
 
 private val PreviewContentTopAlignmentLine = HorizontalAlignmentLine(::max)
 
@@ -37,7 +37,7 @@ private val PreviewContentTopAlignmentLine = HorizontalAlignmentLine(::max)
 @Composable
 private fun FlowRowScope.PreviewItem(
     preview: PreviewInfo,
-    wrapperBlock: WrapperBlock,
+    wrapperBlock: PreviewWrapperBlock,
     previewContentBackgroundOverride: Color?,
 ) {
     val contentBackground =
@@ -85,8 +85,10 @@ private fun FlowRowScope.PreviewItem(
                         .then(if (preview.height != Dp.Unspecified) Modifier.height(preview.height) else Modifier)
                         .then(if (preview.width != Dp.Unspecified) Modifier.width(preview.width) else Modifier)
                 ) {
-                    wrapperBlock(preview.theme.isDark) {
-                        preview.content(PreviewScopeImpl(backgroundColor = contentBackground))
+                    val scope = PreviewScopeImpl(previewTheme = preview.theme, backgroundColor = contentBackground)
+
+                    wrapperBlock(scope) {
+                        preview.content(scope)
                     }
                 }
             }
@@ -97,7 +99,7 @@ private fun FlowRowScope.PreviewItem(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Previewer(
-    wrapperBlock: WrapperBlock,
+    wrapperBlock: PreviewWrapperBlock,
     background: Color = Color.LightGray,
     contentBackgroundOverride: Color? = null,
     content: PreviewerScope.() -> Unit,
