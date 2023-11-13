@@ -1,5 +1,7 @@
 # Compose Desktop Previewer
 
+[![](https://jitpack.io/v/alexfacciorusso/compose-previewer.svg)](https://jitpack.io/#alexfacciorusso/compose-previewer/main-SNAPSHOT)
+
 Composable preview in Compose Desktop + IntelliJ is very limited and kinda sucks, right?
 
 Let's fix that, right now!
@@ -17,48 +19,54 @@ Let's fix that, right now!
 
 ## Usage
 
-Create a wrapper Composable that will setup your own theme for the preview via the `wrapperBlock`:
+1. Follow the steps on [JitPack](https://jitpack.io/#alexfacciorusso/compose-previewer/main-SNAPSHOT) to add it to your
+dependencies.
 
-```kotlin
-@Composable
-fun AppThemePreviewer(content: PreviewerScope.() -> Unit) {
-    Previewer(wrapperBlock = { wrappedContent ->
-        // The `previewTheme` property is accessible via the PreviewScope
-        // The `wrapperBlock` function will wrap every preview created with this Previewer composable
-        
-        AppTheme(isDarkModeOverride = previewTheme.isDark) {
-            wrappedContent()
-        }
-    }, content = content)
-}
-```
+2. Create a wrapper Composable that will set up your own theme for the preview via the `wrapperBlock`:
+    ```kotlin
+    @Composable
+    fun AppThemePreviewer(content: PreviewerScope.() -> Unit) {
+        Previewer(wrapperBlock = { wrappedContent ->
+            // The `previewTheme` property is accessible via the PreviewScope
+            // The `wrapperBlock` function will wrap every preview created with this Previewer composable
+            
+            AppTheme(isDarkModeOverride = previewTheme.isDark) {
+                wrappedContent()
+            }
+        }, content = content)
+    }
+    ```
 
-And then create a composable function annotated with @Preview, where you will use the 
+3. Create a composable function annotated with @Preview, where you will use the 
 DSL to create the various previews:
 
-```kotlin
+    ```kotlin
 
-@Preview
-@Composable
-fun MyPreview() {
-    AppThemePreviewer {
-        previewLightAndDark("My button preview") {
-            MyComposable()
-        }
+    @Preview
+    @Composable
+    fun MyPreview() {
+        AppThemePreviewer {
+            previewLightAndDark("My button preview") {
+                MyComposable()
+            }
 
-        preview {
-            MyComposable()
-        }
+            preview {
+                MyComposable()
+            }
 
-        previewLightAndDark("Radio button") {
-            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
-                RadioButtonWithLabel("This is a test radio", true, onClick = {})
+            previewLightAndDark("Radio button") {
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
+                    RadioButtonWithLabel("This is a test radio", true, onClick = {})
+                }
             }
         }
     }
-}
-```
+    ```
 
 ## Screenshots
 
 ![previewer_screenshot_1.png](res/previewer_screenshot_1.png)
+
+## License
+
+See the LICENSE file.
