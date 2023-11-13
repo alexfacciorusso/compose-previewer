@@ -31,7 +31,7 @@ fun AppThemePreviewer(content: PreviewerScope.() -> Unit) {
     Previewer(wrapperBlock = { wrappedContent ->
         val themeInfo = when (previewTheme) {
             PreviewTheme.Light -> ThemeInfo.Light
-            PreviewTheme.Dark -> ThemeInfo.Light
+            PreviewTheme.Dark -> ThemeInfo.Dark
         }
 
         CompositionLocalProvider(LocalThemeInfo provides themeInfo) {
