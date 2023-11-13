@@ -16,12 +16,6 @@ dependencies {
     implementation(compose.desktop.common)
 }
 
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-    }
-}
-
 kotlin {
     jvmToolchain(17)
 }
