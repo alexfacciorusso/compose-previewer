@@ -1,4 +1,10 @@
+plugins {
+    `maven-publish`
+}
+
+
+
 allprojects {
-    val ver = extra["kotlin.version"] as String
+    val ver = extra["lib.version"] as String
     version = "$ver-SNAPSHOT"
 }
