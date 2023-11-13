@@ -20,6 +20,14 @@ kotlin {
     jvmToolchain(17)
 }
 
+publishing {
+    publications {
+        register<MavenPublication>("lib") {
+            from(components["java"])
+        }
+    }
+}
+
 java {
     withSourcesJar()
     withJavadocJar()
