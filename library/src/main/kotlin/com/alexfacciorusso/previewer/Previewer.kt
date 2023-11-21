@@ -99,7 +99,7 @@ private fun FlowRowScope.PreviewItem(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Previewer(
-    wrapperBlock: PreviewWrapperBlock,
+    wrapperBlock: PreviewWrapperBlock = { it() },
     background: Color = Color.LightGray,
     contentBackgroundOverride: Color? = null,
     content: PreviewerScope.() -> Unit,
