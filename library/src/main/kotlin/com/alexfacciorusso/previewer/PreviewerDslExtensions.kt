@@ -11,7 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 
 fun PreviewerScope.preview(
-    title: String = "",
+    title: String,
     previewTheme: PreviewTheme = PreviewTheme.Light,
     height: Dp = Dp.Unspecified,
     width: Dp = Dp.Unspecified,

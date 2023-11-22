@@ -19,7 +19,7 @@ internal val DefaultPreviewContentPadding = PaddingValues(16.dp)
 
 interface PreviewerScope {
     fun preview(
-        title: AnnotatedString,
+        title: AnnotatedString = AnnotatedString(""),
         previewTheme: PreviewTheme = PreviewTheme.Light,
         height: Dp = Dp.Unspecified,
         width: Dp = Dp.Unspecified,
